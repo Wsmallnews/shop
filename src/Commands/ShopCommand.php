@@ -1,12 +1,12 @@
 <?php
 
-namespace VendorName\Skeleton\Commands;
+namespace Wsmallnews\Shop\Commands;
 
 use Illuminate\Console\Command;
 
-class SkeletonCommand extends Command
+class ShopCommand extends Command
 {
-    public $signature = 'skeleton';
+    public $signature = 'shop';
 
     public $description = 'My command';
 
