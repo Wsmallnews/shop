@@ -4,17 +4,36 @@ namespace Wsmallnews\Shop;
 
 use Filament\Contracts\Plugin;
 use Filament\Panel;
+use Wsmallnews\Category\Resources\Pages\Category;
+use Wsmallnews\Product\Resources\{
+    AttributeRepositoryResource,
+    ProductResource,
+    UnitRepositoryResource,
+};
+use Wsmallnews\Shop\Resources\{
+    Pages\Settings\WechatPay
+};
+
 
 class ShopPlugin implements Plugin
 {
     public function getId(): string
     {
-        return 'shop';
+        return 'sn-shop';
     }
 
     public function register(Panel $panel): void
     {
-        //
+        $panel
+            ->resources([
+                ProductResource::class,
+                AttributeRepositoryResource::class,
+                UnitRepositoryResource::class,
+            ])
+            ->pages([
+                WechatPay::class,
+                Category::class,
+            ]);
     }
 
     public function boot(Panel $panel): void

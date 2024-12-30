@@ -2,6 +2,7 @@
 
 namespace Wsmallnews\Shop;
 
+use App\Models\User as UserModel;
 use Filament\Support\Assets\AlpineComponent;
 use Filament\Support\Assets\Asset;
 use Filament\Support\Assets\Css;
@@ -10,17 +11,38 @@ use Filament\Support\Facades\FilamentAsset;
 use Filament\Support\Facades\FilamentIcon;
 use Illuminate\Filesystem\Filesystem;
 use Livewire\Features\SupportTesting\Testable;
+use Livewire\Livewire;
 use Spatie\LaravelPackageTools\Commands\InstallCommand;
 use Spatie\LaravelPackageTools\Package;
 use Spatie\LaravelPackageTools\PackageServiceProvider;
+use Wsmallnews\Pay\PayManager;
+use Wsmallnews\Category\Category;
+use Wsmallnews\Category\Resources\{
+    Pages\Category as CategoryPage
+};
+use Wsmallnews\Product\Product;
+use Wsmallnews\Product\Resources\{
+    AttributeRepositoryResource,
+    UnitRepositoryResource,
+    ProductResource,
+};
 use Wsmallnews\Shop\Commands\ShopCommand;
+use Wsmallnews\Shop\Components\{
+    Navigation,
+};
+use Wsmallnews\Shop\Pages\{
+    Index,
+    Product\Detail as ProductDetail,
+    Pay\Cashier,
+};
 use Wsmallnews\Shop\Testing\TestsShop;
+use Wsmallnews\User\User;
 
 class ShopServiceProvider extends PackageServiceProvider
 {
-    public static string $name = 'shop';
+    public static string $name = 'sn-shop';
 
-    public static string $viewNamespace = 'shop';
+    public static string $viewNamespace = 'sn-shop';
 
     public function configurePackage(Package $package): void
     {
@@ -45,6 +67,10 @@ class ShopServiceProvider extends PackageServiceProvider
             $package->hasConfigFile();
         }
 
+        if (file_exists($package->basePath('/../routes'))) {
+            $package->hasRoutes($this->getRoutes());
+        }
+
         if (file_exists($package->basePath('/../database/migrations'))) {
             $package->hasMigrations($this->getMigrations());
         }
@@ -58,7 +84,62 @@ class ShopServiceProvider extends PackageServiceProvider
         }
     }
 
-    public function packageRegistered(): void {}
+    public function packageRegistered(): void
+    {
+        // 支付实例
+        // $this->app->singleton('sn-shop-pay', function ($app) {
+        //     return (new PayManager($app))->setPayConfig(function () {
+        //         return new ShopPayConfig();     // 这里的实例化参数怎么传
+        //     });
+        // });
+
+
+        Product::setResources([
+            'group_info' => [
+                // 'navigation_parent_item' => '商城',
+                'navigation_group' => '产品管理',
+            ],
+            'resources' => [
+                ProductResource::class => [
+                    'navigation_label' => '产品库',
+                    'navigation_icon' => 'elemplus-goods-filled',
+                    'navigation_sort' => 111,
+                    'model_label' => '产品',
+                    'plural_model_label' => '产品库',
+                    'record_title_attribute' => 'title',
+                    'slug' => '/products',
+                ],
+                AttributeRepositoryResource::class => [
+                    'navigation_label' => '属性库',
+                    'navigation_sort' => 222,
+                    'model_label' => '属性',
+                    'slug' => '/products/attribute-repositories',
+                ],
+                UnitRepositoryResource::class => [
+                    'navigation_label' => '单位库',
+                    'navigation_sort' => 333,
+                    'model_label' => '单位',
+                    'slug' => '/products/unit-repositories',
+                ],
+            ],
+        ]);
+
+        
+
+        Category::setPages([
+            'group_info' => [
+                // 'navigation_parent_item' => '商城',
+                'navigation_group' => '产品管理',
+            ],
+            'pages' => [
+                CategoryPage::class => [
+                    'navigation_label' => '分类管理',
+                    'slug' => 'category/{scope_type}'
+                ]
+            ]
+        ]);
+        
+    }
 
     public function packageBooted(): void
     {
@@ -85,6 +166,31 @@ class ShopServiceProvider extends PackageServiceProvider
             }
         }
 
+        // 用户模块相关
+        User::$userModel = UserModel::class;
+
+        // 注册用户模块路由
+        User::$routeNames = [
+            'index' => 'sn-shop.index',
+            'login' => 'sn-shop.login',
+            'register' => 'sn-shop.register',
+        ];
+
+
+        Livewire::component('sn-shop-index', Index::class);
+
+        Livewire::component('sn-shop-product-detail', ProductDetail::class);
+
+        Livewire::component('sn-shop-pay-cashier', Cashier::class);
+
+        Livewire::component('sn-shop-navigation', Navigation::class);
+
+
+        // @sn todo 需要完善的功能
+        // *. 需要注册设置页面 | 使用迁移，设置默认值 | 设置在正式上需要缓存
+        //
+
+
         // Testing
         Testable::mixin(new TestsShop);
     }
@@ -101,8 +207,8 @@ class ShopServiceProvider extends PackageServiceProvider
     {
         return [
             // AlpineComponent::make('shop', __DIR__ . '/../resources/dist/components/shop.js'),
-            Css::make('shop-styles', __DIR__ . '/../resources/dist/shop.css'),
-            Js::make('shop-scripts', __DIR__ . '/../resources/dist/shop.js'),
+            // Css::make('shop-styles', __DIR__ . '/../resources/dist/shop.css'),
+            // Js::make('shop-scripts', __DIR__ . '/../resources/dist/shop.js'),
         ];
     }
 
@@ -129,7 +235,7 @@ class ShopServiceProvider extends PackageServiceProvider
      */
     protected function getRoutes(): array
     {
-        return [];
+        return ['web'];
     }
 
     /**
