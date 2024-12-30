@@ -10,12 +10,14 @@ use Yansongda\Pay\Pay;
 
 class WechatPay extends SettingsPage
 {
-
     protected static ?string $navigationGroup = '设置';
+
     protected static ?string $navigationLabel = '微信支付配置';
+
     protected static ?string $navigationIcon = 'heroicon-o-cog-6-tooth';
 
     protected static ?string $slug = '/shop/wechat-pay';
+
     protected static ?int $navigationSort = 2;
 
     protected static string $settings = WechatPaySetting::class;

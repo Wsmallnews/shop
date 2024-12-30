@@ -2,13 +2,8 @@
 
 namespace Wsmallnews\Shop\Pages;
 
-use Illuminate\Support\Collection;
-use Illuminate\Support\Facades\Auth;
-use Livewire\Attributes\Layout;
-
 class Index extends Base
 {
-
     public function mount()
     {
 
@@ -23,8 +18,6 @@ class Index extends Base
         // ]);
         // exit;
     }
-
-
 
     public function render()
     {

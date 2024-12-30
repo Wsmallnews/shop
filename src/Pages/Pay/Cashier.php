@@ -3,19 +3,15 @@
 namespace Wsmallnews\Shop\Pages\Pay;
 
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Auth;
-use Livewire\Attributes\Layout;
 use Livewire\Attributes\On;
-use Wsmallnews\Shop\Pages\Base;
-use Wsmallnews\Order\Models\Order;
-use Wsmallnews\Order\Enums\Order\Status;
 use Wsmallnews\Order\Enums\Order\PayStatus;
-use Wsmallnews\Pay\PayManager;
+use Wsmallnews\Order\Enums\Order\Status;
+use Wsmallnews\Order\Models\Order;
+use Wsmallnews\Shop\Pages\Base;
 
 class Cashier extends Base
 {
-
     public ?string $order_sn;
 
     public ?Model $user;
@@ -31,14 +27,12 @@ class Cashier extends Base
         $this->setOrder();
     }
 
-
     public function setOrder()
     {
         $this->order = Order::where('user_id', ($this->user ? $this->user->id : 0))->where('order_sn', $this->order_sn)->firstOrFail();
     }
 
-
-    #[On('pay-start')] 
+    #[On('pay-start')]
     public function payStart($payMethod)
     {
         $this->setOrder();
@@ -61,7 +55,6 @@ class Cashier extends Base
             $result = $pay->driver($payMethod)->thirdPrepay($payRecord);
         }
     }
-
 
     public function render()
     {

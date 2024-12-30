@@ -3,9 +3,7 @@
 namespace Wsmallnews\Shop\Pages\Order;
 
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Auth;
-use Livewire\Attributes\Layout;
 use Wsmallnews\Shop\Pages\Base;
 
 class Confirm extends Base
@@ -29,9 +27,6 @@ class Confirm extends Base
 
         $this->from = request()->get('from', $this->from);
     }
-
-
-
 
     public function render()
     {

@@ -36,7 +36,7 @@ class WechatPay extends SettingsPage
                     ->placeholder('请输入商户公钥证书')
                     ->uploadingMessage('证书上传中...')
                     ->required(),
-                    
+
                 Components\TextInput::make('sub_mch_id')->label('子商户id')
                     ->placeholder('请输入子商户id')->required(),
 

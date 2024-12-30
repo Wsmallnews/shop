@@ -2,7 +2,6 @@
 
 namespace Wsmallnews\Shop\Resources\ProductResource\Pages;
 
-use Filament\Actions;
 use Wsmallnews\Product\Resources\ProductResource\Pages\ViewProduct as ViewProductsBase;
 use Wsmallnews\Shop\Resources\ProductResource;
 

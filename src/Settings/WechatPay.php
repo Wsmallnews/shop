@@ -3,7 +3,6 @@
 namespace Wsmallnews\Shop\Settings;
 
 use Spatie\LaravelSettings\Settings;
-use Yansongda\Pay\Pay;
 
 class WechatPay extends Settings
 {
@@ -35,7 +34,6 @@ class WechatPay extends Settings
     {
         return 'shop_wechat_pay';
     }
-
 
     // {
     //     "app_id":"",

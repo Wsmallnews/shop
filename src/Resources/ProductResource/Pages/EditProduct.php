@@ -10,12 +10,10 @@ class EditProduct extends EditProductBase
 {
     protected static string $resource = ProductResource::class;
 
-
     public function boot(): void
     {
         // db_listen();
     }
-
 
     protected function getHeaderActions(): array
     {

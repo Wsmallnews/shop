@@ -18,23 +18,19 @@ class ShopPayConfig implements PayConfigInterface
 
         $this->platform = $platform ?: request()->header('platform', null);
 
-        if (!$this->platform) {
+        if (! $this->platform) {
             throw new PayException('缺少用户端平台参数');
         }
 
         $this->payConfig = $this->initPayConfig();
     }
 
-
-
     public function getPayConfig($pay_method): array
     {
         $config = $this->payConfig[$pay_method];
 
-
         return $config;
     }
-
 
     public function getFinalConfig($pay_method): array
     {
@@ -47,60 +43,46 @@ class ShopPayConfig implements PayConfigInterface
         return $config;
     }
 
-
     protected function initPayConfig(): array
     {
         $payConfig = [
             'money' => [
-                ''
+                '',
             ],
             'score' => [
                 'real_rate' => function () {
                     return 0.1;
-                }
+                },
             ],
             'wechat' => [
 
-            ]
+            ],
         ];
 
         return $payConfig;
     }
-
-
-
-    
-
 
     // public function getNotifyUrl()
     // {
     //     return request()->domain() . '/estore/api.pay/notify/payment/' . $this->payment . '/platform/' . $this->platform;
     // }
 
-
     // public function getRefundNotifyUrl()
     // {
     //     return request()->domain() . '/estore/api.pay/refundNotify/payment/' . $this->payment . '/platform/' . $this->platform;
     // }
 
-
-
-
-
-
-
-
     /**
      * 获取对应的支付方法名
      *
-     * @param strign $payment
+     * @param  strign  $payment
      * @return string
      */
     // public function getPayMethod(): string
     // {
     //     $method = [
     //         'WechatOfficialAccount' => 'mp',        //公众号支付 Collection
-    //         'WechatMiniProgram' => 'mini',       //小程序支付 Collection 
+    //         'WechatMiniProgram' => 'mini',       //小程序支付 Collection
     //         'H5' => 'wap',                      //手机网站支付 Response
     //         'App' => 'app',                      // APP 支付 JsonResponse
     //         'TtMiniProgram' => 'mini',
@@ -108,7 +90,6 @@ class ShopPayConfig implements PayConfigInterface
 
     //     return $method[$this->platform];
     // }
-
 
     /**
      * 初始化支付配置参数
@@ -124,12 +105,8 @@ class ShopPayConfig implements PayConfigInterface
     //     return $payConfig;
     // }
 
-
-
     /**
      * 获取平台配置参数
-     *
-     * @return array
      */
     // protected function getPlatformPayConfig()
     // {
@@ -142,7 +119,6 @@ class ShopPayConfig implements PayConfigInterface
     //     if (!in_array($this->payment, $paymentMethods)) {
     //         throw new PayException('当前平台不支持此支付渠道');
     //     }
-
 
     //     return $platformSetting;
 
@@ -160,8 +136,6 @@ class ShopPayConfig implements PayConfigInterface
     //     return compact('pay_config_id', 'app_id');
     // }
 
-
-
     // protected function getDbPayConfig($platformPayConfig)
     // {
     //     $pay_config_id = $platformPayConfig['pay_config_id'] ?? 0;
@@ -177,8 +151,6 @@ class ShopPayConfig implements PayConfigInterface
 
     //     return $payConfig->params;
     // }
-
-
 
     // /**
     //  * 格式化微信官方渠道配置参数
@@ -242,9 +214,6 @@ class ShopPayConfig implements PayConfigInterface
     //     return $payConfig;
     // }
 
-
-
-
     // /**
     //  * 格式化支付宝官方渠道配置参数
     //  *
@@ -272,8 +241,6 @@ class ShopPayConfig implements PayConfigInterface
     //     return $payConfig;
     // }
 
-
-
     // /**
     //  * 格式化微信官方渠道配置参数
     //  */
@@ -295,17 +262,13 @@ class ShopPayConfig implements PayConfigInterface
     //     return $payConfig;
     // }
 
-
-
     /**
      * yansongda 基础配置
-     *
-     * @return array
      */
     protected function yansongdaBaseConfig(): array
     {
         $log_path = RUNTIME_PATH . 'log/pay/';
-        if (!is_dir($log_path)) {
+        if (! is_dir($log_path)) {
             @mkdir($log_path, 0755, true);
         }
 
@@ -324,5 +287,4 @@ class ShopPayConfig implements PayConfigInterface
             ],
         ];
     }
-
 }

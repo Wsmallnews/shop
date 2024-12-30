@@ -5,15 +5,10 @@ namespace Wsmallnews\Shop;
 use Filament\Contracts\Plugin;
 use Filament\Panel;
 use Wsmallnews\Category\Resources\Pages\Category;
-use Wsmallnews\Product\Resources\{
-    AttributeRepositoryResource,
-    ProductResource,
-    UnitRepositoryResource,
-};
-use Wsmallnews\Shop\Resources\{
-    Pages\Settings\WechatPay
-};
-
+use Wsmallnews\Product\Resources\AttributeRepositoryResource;
+use Wsmallnews\Product\Resources\ProductResource;
+use Wsmallnews\Product\Resources\UnitRepositoryResource;
+use Wsmallnews\Shop\Resources\Pages\Settings\WechatPay;
 
 class ShopPlugin implements Plugin
 {

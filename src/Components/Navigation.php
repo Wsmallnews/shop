@@ -2,23 +2,13 @@
 
 namespace Wsmallnews\Shop\Components;
 
-use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
 use Livewire\Component;
-use Livewire\WithPagination;
-use Livewire\WithoutUrlPagination;
-use Wsmallnews\Product\Models\Product;
-
 
 class Navigation extends Component
 {
-
-    public function mount()
-    {
-
-    }
-
+    public function mount() {}
 
     /**
      * Log the current user out of the application.
@@ -32,7 +22,6 @@ class Navigation extends Component
 
         $this->redirectRoute('sn-shop.index', navigate: true);
     }
-
 
     public function render()
     {

@@ -15,26 +15,18 @@ use Livewire\Livewire;
 use Spatie\LaravelPackageTools\Commands\InstallCommand;
 use Spatie\LaravelPackageTools\Package;
 use Spatie\LaravelPackageTools\PackageServiceProvider;
-use Wsmallnews\Pay\PayManager;
 use Wsmallnews\Category\Category;
-use Wsmallnews\Category\Resources\{
-    Pages\Category as CategoryPage
-};
+use Wsmallnews\Category\Resources\Pages\Category as CategoryPage;
+use Wsmallnews\Pay\PayManager;
 use Wsmallnews\Product\Product;
-use Wsmallnews\Product\Resources\{
-    AttributeRepositoryResource,
-    UnitRepositoryResource,
-    ProductResource,
-};
+use Wsmallnews\Product\Resources\AttributeRepositoryResource;
+use Wsmallnews\Product\Resources\ProductResource;
+use Wsmallnews\Product\Resources\UnitRepositoryResource;
 use Wsmallnews\Shop\Commands\ShopCommand;
-use Wsmallnews\Shop\Components\{
-    Navigation,
-};
-use Wsmallnews\Shop\Pages\{
-    Index,
-    Product\Detail as ProductDetail,
-    Pay\Cashier,
-};
+use Wsmallnews\Shop\Components\Navigation;
+use Wsmallnews\Shop\Pages\Index;
+use Wsmallnews\Shop\Pages\Pay\Cashier;
+use Wsmallnews\Shop\Pages\Product\Detail as ProductDetail;
 use Wsmallnews\Shop\Testing\TestsShop;
 use Wsmallnews\User\User;
 
@@ -93,7 +85,6 @@ class ShopServiceProvider extends PackageServiceProvider
         //     });
         // });
 
-
         Product::setResources([
             'group_info' => [
                 // 'navigation_parent_item' => '商城',
@@ -124,8 +115,6 @@ class ShopServiceProvider extends PackageServiceProvider
             ],
         ]);
 
-        
-
         Category::setPages([
             'group_info' => [
                 // 'navigation_parent_item' => '商城',
@@ -134,11 +123,11 @@ class ShopServiceProvider extends PackageServiceProvider
             'pages' => [
                 CategoryPage::class => [
                     'navigation_label' => '分类管理',
-                    'slug' => 'category/{scope_type}'
-                ]
-            ]
+                    'slug' => 'category/{scope_type}',
+                ],
+            ],
         ]);
-        
+
     }
 
     public function packageBooted(): void
@@ -176,7 +165,6 @@ class ShopServiceProvider extends PackageServiceProvider
             'register' => 'sn-shop.register',
         ];
 
-
         Livewire::component('sn-shop-index', Index::class);
 
         Livewire::component('sn-shop-product-detail', ProductDetail::class);
@@ -185,11 +173,9 @@ class ShopServiceProvider extends PackageServiceProvider
 
         Livewire::component('sn-shop-navigation', Navigation::class);
 
-
         // @sn todo 需要完善的功能
         // *. 需要注册设置页面 | 使用迁移，设置默认值 | 设置在正式上需要缓存
         //
-
 
         // Testing
         Testable::mixin(new TestsShop);
