@@ -238,7 +238,7 @@ class ShopServiceProvider extends PackageServiceProvider
     protected function getMigrations(): array
     {
         return [
-            'create_shop_table',
+            // 'create_shop_table',
         ];
     }
 }
