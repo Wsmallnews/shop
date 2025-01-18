@@ -22,7 +22,7 @@ use Wsmallnews\Product\Product;
 use Wsmallnews\Product\Resources\AttributeRepositoryResource;
 use Wsmallnews\Product\Resources\ProductResource;
 use Wsmallnews\Product\Resources\UnitRepositoryResource;
-use Wsmallnews\Shop\Commands\ShopCommand;
+use Wsmallnews\Shop\Commands\ShopInstall;
 use Wsmallnews\Shop\Components\Navigation;
 use Wsmallnews\Shop\Pages\Index;
 use Wsmallnews\Shop\Pages\Pay\Cashier;
@@ -44,14 +44,7 @@ class ShopServiceProvider extends PackageServiceProvider
          * More info: https://github.com/spatie/laravel-package-tools
          */
         $package->name(static::$name)
-            ->hasCommands($this->getCommands())
-            ->hasInstallCommand(function (InstallCommand $command) {
-                $command
-                    ->publishConfigFile()
-                    ->publishMigrations()
-                    ->askToRunMigrations()
-                    ->askToStarRepoOnGitHub('wsmallnews/shop');
-            });
+            ->hasCommands($this->getCommands());
 
         $configFileName = $package->shortName();
 
@@ -204,7 +197,7 @@ class ShopServiceProvider extends PackageServiceProvider
     protected function getCommands(): array
     {
         return [
-            ShopCommand::class,
+            ShopInstall::class,
         ];
     }
 
