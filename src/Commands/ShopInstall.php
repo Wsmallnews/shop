@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\File;
 use function Laravel\Prompts\confirm;
 
 class ShopInstall extends Command
-{   
+{
     public $signature = 'sn-shop:install';
 
     public $description = 'Install the sn-shop';
@@ -66,7 +66,6 @@ class ShopInstall extends Command
         return self::SUCCESS;
     }
 
-
     /**
      * 检查如果给定文件或目录是否存在
      */
@@ -78,8 +77,6 @@ class ShopInstall extends Command
 
         return ! empty(File::allFiles(config_path($fileName)));
     }
-
-
 
     /**
      * Publishes configuration for the Service Provider.
