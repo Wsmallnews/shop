@@ -34,7 +34,7 @@ class ShopInstall extends Command
         if (confirm('Publish `Spatie\LaravelSettings` package`s database migrations?')) {
             $this->call('vendor:publish', [
                 '--provider' => 'Spatie\LaravelSettings\LaravelSettingsServiceProvider',
-                '--tag' => 'migrations'
+                '--tag' => 'migrations',
             ]);
         }
 
