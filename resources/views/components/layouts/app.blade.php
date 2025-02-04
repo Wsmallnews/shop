@@ -17,11 +17,9 @@
 
         @filamentStyles
         @vite('resources/css/app.css')
-
-        <script src="https://cdn.tailwindcss.com"></script>
     </head>
 
-    <body class="antialiased min-h-screen bg-gray-50 font-normal text-gray-950 antialiased dark:bg-gray-950 dark:text-white">
+    <body class="antialiased min-h-screen bg-gray-50 font-normal text-gray-950 dark:bg-gray-950 dark:text-white">
         @livewire('sn-shop-navigation')
 
         {{ $slot }}

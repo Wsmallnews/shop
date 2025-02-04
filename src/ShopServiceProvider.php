@@ -115,11 +115,10 @@ class ShopServiceProvider extends PackageServiceProvider
             'pages' => [
                 CategoryPage::class => [
                     'navigation_label' => '分类管理',
-                    'slug' => 'category/{scope_type}',
+                    'slug' => 'category',
                 ],
             ],
         ]);
-
     }
 
     public function packageBooted(): void
@@ -146,6 +145,8 @@ class ShopServiceProvider extends PackageServiceProvider
                 ], 'shop-stubs');
             }
         }
+
+        Category::registerType('default');
 
         // 用户模块相关
         User::$userModel = UserModel::class;
