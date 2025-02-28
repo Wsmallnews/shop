@@ -10,7 +10,7 @@
     </div>
 
     <div class="w-full rounded-lg overflow-hidden">
-        <livewire:sn-order-confirm :user="$user" :relate-items="$relateItems" :order_type="$type" :from="$from" />
+        <livewire:sn-order-confirm :buyer="$user" :relate-items="$relateItems" :order_type="$type" :from="$from" />
     </div>
 </div>
 

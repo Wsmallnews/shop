@@ -17,6 +17,9 @@
 
         @filamentStyles
         @vite('resources/css/app.css')
+
+        {{-- @sn todo 这里要把 tailwindcss 移除 --}}
+        <script src="https://cdn.tailwindcss.com"></script>
     </head>
 
     <body class="antialiased min-h-screen bg-gray-50 font-normal text-gray-950 dark:bg-gray-950 dark:text-white">
