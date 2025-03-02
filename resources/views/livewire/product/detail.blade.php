@@ -9,7 +9,7 @@
     </div>
 
     <div class="w-full rounded-lg">
-        <livewire:sn-product-detail :id="$id" />
+        <livewire:sn-product-detail scope_type="shop" :id="$id" />
     </div>
 </div>
 
