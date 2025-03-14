@@ -13,13 +13,11 @@
     </div>
 </div>
 
-
 @assets
 <script>
     function pageDetail({
     }) {
         return {
-            
             init () {
                 this.$wire.on('product-buy', (data) => {
                     let params = new URLSearchParams(data);
