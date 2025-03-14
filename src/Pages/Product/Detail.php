@@ -2,8 +2,6 @@
 
 namespace Wsmallnews\Shop\Pages\Product;
 
-use Illuminate\Support\Arr;
-use Livewire\Attributes\On;
 use Wsmallnews\Shop\Pages\Base;
 
 class Detail extends Base
