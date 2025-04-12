@@ -12,14 +12,12 @@ class CreateProduct extends BaseCreateRecord
     use WizardForm;
 
     protected static string $resource = ProductResource::class;
-    
+
     #[Locked]
     public string $scope_type = 'shop';
-
 
     protected function hasSkippableSteps(): bool
     {
         return true;
     }
-
 }

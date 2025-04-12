@@ -26,7 +26,6 @@ class EditProduct extends BaseEditRecord
         ];
     }
 
-
     protected function hasSkippableSteps(): bool
     {
         return true;

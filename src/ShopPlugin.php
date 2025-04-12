@@ -7,9 +7,9 @@ use Filament\Panel;
 use Wsmallnews\Category\Resources\Pages\Category;
 use Wsmallnews\Product\Resources\AttributeRepositoryResource;
 // use Wsmallnews\Product\Resources\ProductResource;
-use Wsmallnews\Shop\Filament\Resources\ProductResource;
 use Wsmallnews\Product\Resources\UnitRepositoryResource;
 use Wsmallnews\Shop\Filament\Pages\Settings\WechatPay;
+use Wsmallnews\Shop\Filament\Resources\ProductResource;
 
 class ShopPlugin implements Plugin
 {

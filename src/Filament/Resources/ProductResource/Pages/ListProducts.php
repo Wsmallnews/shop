@@ -12,7 +12,6 @@ use Wsmallnews\Support\Filament\Resources\BasePages\BaseListRecords;
 
 class ListProducts extends BaseListRecords
 {
-
     protected static string $resource = ProductResource::class;
 
     #[Locked]
@@ -25,16 +24,15 @@ class ListProducts extends BaseListRecords
         ];
     }
 
-
     public function getTabs(): array
     {
         $labels = ProductStatus::labels();
 
         $tabs = [
-            'all' => Tab::make('all')->label('全部')
+            'all' => Tab::make('all')->label('全部'),
         ];
         foreach ($labels as $key => $label) {
-            $tabs[$label['value']] = Tab::make($label['name'])->modifyQueryUsing(fn(Builder $query) => $query->{$label['value']}());
+            $tabs[$label['value']] = Tab::make($label['name'])->modifyQueryUsing(fn (Builder $query) => $query->{$label['value']}());
         }
 
         return $tabs;

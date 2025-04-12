@@ -9,8 +9,8 @@ use Filament\Resources\Pages\Page;
 use Filament\Tables;
 use Filament\Tables\Table;
 use Wsmallnews\Product\Models\Product as ProductModel;
-use Wsmallnews\Product\Repositories\Fields as FieldsRepository;
 use Wsmallnews\Product\Repositories\Columns as ColumnsRepository;
+use Wsmallnews\Product\Repositories\Fields as FieldsRepository;
 use Wsmallnews\Product\ResourceBuilder\ProductResourceBuilder;
 use Wsmallnews\Shop\Filament\Resources\ProductResource\Pages;
 use Wsmallnews\Support\Filament\Resources\SupportResource;
@@ -20,6 +20,7 @@ class ProductResource extends SupportResource
     protected static ?string $model = ProductModel::class;
 
     protected static ?string $navigationGroup = '产品管理';
+
     protected static ?string $navigationLabel = '产品管理';
 
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
@@ -36,7 +37,6 @@ class ProductResource extends SupportResource
 
     protected static SubNavigationPosition $subNavigationPosition = SubNavigationPosition::End;
 
-
     public static function getRecordSubNavigation(Page $page): array
     {
         return $page->generateNavigationItems([
@@ -48,7 +48,6 @@ class ProductResource extends SupportResource
             // Pages\ManageCustomerPayments::class,
         ]);
     }
-
 
     // public static function form(Form $form): Form
     // {
@@ -73,8 +72,6 @@ class ProductResource extends SupportResource
     //                 ]),
     //         ]);
     // }
-
-
 
     // 字段排序
     // filter 排序
@@ -117,8 +114,6 @@ class ProductResource extends SupportResource
             ->searchPlaceholder('搜索产品标题')
             ->striped();
     }
-
-
 
     public static function getPages(): array
     {
