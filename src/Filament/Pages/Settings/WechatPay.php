@@ -1,6 +1,6 @@
 <?php
 
-namespace Wsmallnews\Shop\Resources\Pages\Settings;
+namespace Wsmallnews\Shop\Filament\Pages\Settings;
 
 use Filament\Forms\Components;
 use Filament\Forms\Form;

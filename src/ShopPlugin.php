@@ -6,9 +6,10 @@ use Filament\Contracts\Plugin;
 use Filament\Panel;
 use Wsmallnews\Category\Resources\Pages\Category;
 use Wsmallnews\Product\Resources\AttributeRepositoryResource;
-use Wsmallnews\Product\Resources\ProductResource;
+// use Wsmallnews\Product\Resources\ProductResource;
+use Wsmallnews\Shop\Filament\Resources\ProductResource;
 use Wsmallnews\Product\Resources\UnitRepositoryResource;
-use Wsmallnews\Shop\Resources\Pages\Settings\WechatPay;
+use Wsmallnews\Shop\Filament\Pages\Settings\WechatPay;
 
 class ShopPlugin implements Plugin
 {
@@ -22,12 +23,12 @@ class ShopPlugin implements Plugin
         $panel
             ->resources([
                 ProductResource::class,
-                AttributeRepositoryResource::class,
-                UnitRepositoryResource::class,
+                // AttributeRepositoryResource::class,
+                // UnitRepositoryResource::class,
             ])
             ->pages([
                 WechatPay::class,
-                Category::class,
+                // Category::class,
             ]);
     }
 

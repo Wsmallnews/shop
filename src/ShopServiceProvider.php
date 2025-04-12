@@ -77,48 +77,48 @@ class ShopServiceProvider extends PackageServiceProvider
         //     });
         // });
 
-        Product::setResources([
-            'group_info' => [
-                // 'navigation_parent_item' => '商城',
-                'navigation_group' => '产品管理',
-            ],
-            'resources' => [
-                ProductResource::class => [
-                    'navigation_label' => '产品库',
-                    'navigation_icon' => 'elemplus-goods-filled',
-                    'navigation_sort' => 111,
-                    'model_label' => '产品',
-                    'plural_model_label' => '产品库',
-                    'record_title_attribute' => 'title',
-                    'slug' => '/products',
-                ],
-                AttributeRepositoryResource::class => [
-                    'navigation_label' => '属性库',
-                    'navigation_sort' => 222,
-                    'model_label' => '属性',
-                    'slug' => '/products/attribute-repositories',
-                ],
-                UnitRepositoryResource::class => [
-                    'navigation_label' => '单位库',
-                    'navigation_sort' => 333,
-                    'model_label' => '单位',
-                    'slug' => '/products/unit-repositories',
-                ],
-            ],
-        ]);
+        // Product::setResources([
+        //     'group_info' => [
+        //         // 'navigation_parent_item' => '商城',
+        //         'navigation_group' => '产品管理',
+        //     ],
+        //     'resources' => [
+        //         ProductResource::class => [
+        //             'navigation_label' => '产品库',
+        //             'navigation_icon' => 'elemplus-goods-filled',
+        //             'navigation_sort' => 111,
+        //             'model_label' => '产品',
+        //             'plural_model_label' => '产品库',
+        //             'record_title_attribute' => 'title',
+        //             'slug' => '/products',
+        //         ],
+        //         AttributeRepositoryResource::class => [
+        //             'navigation_label' => '属性库',
+        //             'navigation_sort' => 222,
+        //             'model_label' => '属性',
+        //             'slug' => '/products/attribute-repositories',
+        //         ],
+        //         UnitRepositoryResource::class => [
+        //             'navigation_label' => '单位库',
+        //             'navigation_sort' => 333,
+        //             'model_label' => '单位',
+        //             'slug' => '/products/unit-repositories',
+        //         ],
+        //     ],
+        // ]);
 
-        Category::setPages([
-            'group_info' => [
-                // 'navigation_parent_item' => '商城',
-                'navigation_group' => '产品管理',
-            ],
-            'pages' => [
-                CategoryPage::class => [
-                    'navigation_label' => '分类管理',
-                    'slug' => 'category',
-                ],
-            ],
-        ]);
+        // Category::setPages([
+        //     'group_info' => [
+        //         // 'navigation_parent_item' => '商城',
+        //         'navigation_group' => '产品管理',
+        //     ],
+        //     'pages' => [
+        //         CategoryPage::class => [
+        //             'navigation_label' => '分类管理',
+        //             'slug' => 'category',
+        //         ],
+        //     ],
+        // ]);
     }
 
     public function packageBooted(): void
