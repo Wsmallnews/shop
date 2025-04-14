@@ -77,6 +77,8 @@ class ShopServiceProvider extends PackageServiceProvider
         //     });
         // });
 
+        Product::setMediaConfig(config('sn-shop.media'));
+
         // Product::setResources([
         //     'group_info' => [
         //         // 'navigation_parent_item' => '商城',
