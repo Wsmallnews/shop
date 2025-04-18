@@ -82,8 +82,7 @@ class ProductResource extends SupportResource
         return $table
             ->columns([
                 ColumnsRepository::id(),
-                // ColumnsRepository::productInfo(),
-                ColumnsRepository::image()->disk('public'),
+                ColumnsRepository::image(),
                 ColumnsRepository::title(),
                 ColumnsRepository::price(),
                 ColumnsRepository::viewNum(),
