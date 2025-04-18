@@ -23,7 +23,6 @@ class CreateProduct extends BaseCreateRecord
         return true;
     }
 
-
     protected function afterCreate(): void
     {
         // 将规格中设置的 原价和现价同步到 product 表，多规格同步最低价格的记录信息
@@ -33,7 +32,7 @@ class CreateProduct extends BaseCreateRecord
             $this->getRecord()->original_price = $skuPrice['original_price'] ?? 0;
             $this->getRecord()->price = $skuPrice['price'] ?? 0;
             $this->getRecord()->save();
-        } else if ($rawState['sku_type'] === Enums\ProductSkuType::Multiple->value) {
+        } elseif ($rawState['sku_type'] === Enums\ProductSkuType::Multiple->value) {
             $recursions = $rawState['sku_multiple']['recursions'] ?? collect([]);
             $recursions = $recursions instanceof Collection ? $recursions : collect($recursions);
             $minSkuPrice = $recursions->sortBy('price')->first();
@@ -41,7 +40,7 @@ class CreateProduct extends BaseCreateRecord
             $this->getRecord()->original_price = $minSkuPrice['original_price'] ?? 0;
             $this->getRecord()->price = $minSkuPrice['price'] ?? 0;
             $this->getRecord()->save();
-        } else if ($rawState['sku_type'] === Enums\ProductSkuType::Unit->value) {
+        } elseif ($rawState['sku_type'] === Enums\ProductSkuType::Unit->value) {
             throw new \Exception('多单位商品暂未支持');
         }
     }
