@@ -41,7 +41,7 @@ class ProductResource extends SupportResource
     {
         return $page->generateNavigationItems([
             Pages\EditProduct::class,
-            // Pages\ManageSkuPrices::class,
+            // Pages\ManageVariants::class,
             // Pages\ManageProductMedia::class,
             // Pages\EditCustomerContact::class,
             // Pages\ManageCustomerAddresses::class,
@@ -61,11 +61,11 @@ class ProductResource extends SupportResource
     //                     FieldsRepository::image()->columnSpan(2),
     //                     FieldsRepository::hiddenStockType(),
     //                     Components\Group::make()
-    //                         ->relationship('skuPrice')
+    //                         ->relationship('variant')
     //                         ->schema([
     //                             FieldsRepository::hiddenSkuType(),
     //                             FieldsRepository::price()->columnSpan(2),
-    //                             FieldsRepository::hiddenSkuPriceStatus()->columnSpan(2),
+    //                             FieldsRepository::hiddenVariantStatus()->columnSpan(2),
     //                         ])
     //                         ->columnSpanFull(),
     //                     FieldsRepository::status()->columnSpan(2),
