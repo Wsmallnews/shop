@@ -29,7 +29,7 @@ class Cashier extends Base
 
     public function setOrder()
     {
-        $this->order = Order::where('user_id', ($this->user ? $this->user->id : 0))->where('order_sn', $this->order_sn)->firstOrFail();
+        $this->order = $this->user->orders()->where('order_sn', $this->order_sn)->firstOrFail();
     }
 
     #[On('pay-start')]

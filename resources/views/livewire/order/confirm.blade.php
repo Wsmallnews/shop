@@ -9,7 +9,7 @@
         这个是确认订单的头部
     </div>
 
-    <div class="w-full rounded-lg overflow-hidden">
+    <div class="w-full rounded-lg">
         <livewire:sn-order-confirm scope_type="shop" :buyer="$user" :relate-items="$relateItems" :order_type="$type" :from="$from" />
     </div>
 </div>
