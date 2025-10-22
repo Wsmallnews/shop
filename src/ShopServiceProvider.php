@@ -77,7 +77,7 @@ class ShopServiceProvider extends PackageServiceProvider
         //     });
         // });
 
-        Product::setMediaConfig(config('sn-shop.media'));
+        // Product::setMediaConfig(config('sn-shop.media'));
 
         // Product::setResources([
         //     'group_info' => [
@@ -148,32 +148,32 @@ class ShopServiceProvider extends PackageServiceProvider
             }
         }
 
-        Category::registerType('default');
+        // Category::registerType('default');
 
         // 用户模块相关
-        User::$userModel = UserModel::class;
+        // User::$userModel = UserModel::class;
 
         // 注册用户模块路由
-        User::$routeNames = [
-            'index' => 'sn-shop.index',
-            'login' => 'sn-shop.login',
-            'register' => 'sn-shop.register',
-        ];
+        // User::$routeNames = [
+        //     'index' => 'sn-shop.index',
+        //     'login' => 'sn-shop.login',
+        //     'register' => 'sn-shop.register',
+        // ];
 
-        Livewire::component('sn-shop-index', Index::class);
+        // Livewire::component('sn-shop-index', Index::class);
 
-        Livewire::component('sn-shop-product-detail', ProductDetail::class);
+        // Livewire::component('sn-shop-product-detail', ProductDetail::class);
 
-        Livewire::component('sn-shop-pay-cashier', Cashier::class);
+        // Livewire::component('sn-shop-pay-cashier', Cashier::class);
 
-        Livewire::component('sn-shop-navigation', Navigation::class);
+        // Livewire::component('sn-shop-navigation', Navigation::class);
 
         // @sn todo 需要完善的功能
         // *. 需要注册设置页面 | 使用迁移，设置默认值 | 设置在正式上需要缓存
         //
 
         // Testing
-        Testable::mixin(new TestsShop);
+        // Testable::mixin(new TestsShop);
     }
 
     protected function getAssetPackageName(): ?string
