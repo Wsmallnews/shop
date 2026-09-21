@@ -18,13 +18,13 @@ use Spatie\LaravelPackageTools\Package;
 use Spatie\LaravelPackageTools\PackageServiceProvider;
 use Wsmallnews\Product\Enums\ProductStatus;
 use Wsmallnews\Product\Support\Utils as ProductUtils;
-use Wsmallnews\Shop\Commands\ShopInstall;
+use Wsmallnews\Shop\Commands\ShopInstallCommand;
 use Wsmallnews\Shop\Livewire\Index;
 use Wsmallnews\Shop\Support\Utils;
 use Wsmallnews\Support\Facades\Search as SearchFacade;
 use Wsmallnews\Support\Facades\Seo;
-use Wsmallnews\Support\Modules\Module;
-use Wsmallnews\Support\Modules\ModuleRegistry;
+use Wsmallnews\Support\Features\Modules\Module;
+use Wsmallnews\Support\Features\Modules\ModuleRegistry;
 use Wsmallnews\User\Facades\SidebarMenuRegistry as SidebarMenuRegistryFacade;
 use Wsmallnews\User\Facades\UserConfig;
 use Wsmallnews\User\Http\Middleware\Authenticate;
@@ -237,7 +237,7 @@ class ShopServiceProvider extends PackageServiceProvider
     protected function getCommands(): array
     {
         return [
-            ShopInstall::class,
+            ShopInstallCommand::class,
         ];
     }
 
