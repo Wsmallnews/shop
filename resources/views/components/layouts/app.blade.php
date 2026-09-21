@@ -1,36 +1,96 @@
-<!DOCTYPE html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}" class="scroll-smooth">
-    <head>
-        <meta charset="utf-8" />
+@php
+    use Wsmallnews\Shop\Support\Utils;
+@endphp
 
+<!DOCTYPE html>
+<html lang="{{ str_replace('_', '-', app()->getLocale()) }}" dir="ltr"
+    @class([
+        'sn',
+        'dark' => Utils::hasDarkModeForced(),
+    ])
+>
+    <head>
+        <meta charset="utf-8">
         <meta name="application-name" content="{{ config('app.name') }}" />
         <meta name="csrf-token" content="{{ csrf_token() }}" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
 
-        <title>{{ config('app.name') }}</title>
+        {{-- 页面 SEO 标签（模块归属由 seo-init 路由中间件声明，页面组件在 render 阶段经 Seo 门面链式声明数据） --}}
+        @snSeo
 
         <style>
-            [x-cloak] {
-                display: none !important;
+            :root {
+                /** 默认主题设置变量，可以通过读取该变量获取默认主题色 **/
+                --default-theme-mode: {{ Utils::getDefaultDarkMode() }};
             }
         </style>
 
         @filamentStyles
+
+        @if (! Utils::hasDarkMode())
+            <!-- 如果没开启暗黑模式，则主题一直是亮色 -->
+            <script>
+                localStorage.setItem('sn-support-frontend-theme', 'light')
+            </script>
+        @elseif (Utils::hasDarkModeForced())
+            <!-- 如果强制暗黑模式，则主题一直是暗色 -->
+            <script>
+                localStorage.setItem('sn-support-frontend-theme', 'dark')
+                document.documentElement.classList.add('dark')
+            </script>
+        @else
+            <!-- 如果开启了主题，并且未强制暗黑，则加载 storage 中的主题配置 或者 默认主题配置 -->
+            <script>
+                const loadDarkMode = () => {
+                    window.theme = localStorage.getItem('sn-support-frontend-theme') ?? @js(Utils::getDefaultDarkMode())
+
+                    if (
+                        window.theme === 'dark' ||
+                        (window.theme === 'system' &&
+                            window.matchMedia('(prefers-color-scheme: dark)')
+                                .matches)
+                    ) {
+                        document.documentElement.classList.add('dark')
+                    }
+                }
+
+                // 加载主题色，其实就是给 html 增加 dark
+                loadDarkMode()
+
+                // livewire spa 导航时，重新加载主题色
+                document.addEventListener('livewire:navigated', loadDarkMode)
+            </script>
+        @endif
+
         @vite('resources/css/app.css')
 
-        {{-- @sn todo 这里要把 tailwindcss 移除 --}}
-        <script src="https://cdn.tailwindcss.com"></script>
+        {{-- sn-* 设计令牌运行时覆盖（config sn-support.theme），须在 CSS 之后渲染 --}}
+        @snTheme
     </head>
 
-    <body class="antialiased min-h-screen bg-gray-50 font-normal text-gray-950 dark:bg-gray-950 dark:text-white">
-        @livewire('sn-shop-navigation')
+    <body class="sn-body antialiased bg-gray-50 dark:bg-gray-950 text-gray-700 dark:text-gray-200 flex flex-col min-h-screen">
+        <a href="#main-content" class="sr-only focus:not-sr-only focus:fixed focus:top-2 focus:left-2 focus:z-50 focus:px-4 focus:py-2 focus:rounded-md focus:bg-primary-600 focus:text-white focus:shadow-lg">
+            {{ __('sn-shop::shop.frontend.skip_to_content') }}
+        </a>
 
-        {{ $slot }}
+        <main id="main-content" class="flex flex-col grow">
+            {{ $slot }}
+        </main>
 
         @livewire('notifications')
-        {{-- @livewire('database-notifications') --}}
 
         @filamentScripts
         @vite('resources/js/app.js')
+
+        {{-- 统计代码（后台设置的 analytics_code），注入在 </body> 前 --}}
+        @snSeoAnalytics
+
+        <script>
+            document.addEventListener('livewire:init', () => {
+                Livewire.on('refresh', () => {
+                    window.location.reload();
+                });
+            });
+        </script>
     </body>
 </html>

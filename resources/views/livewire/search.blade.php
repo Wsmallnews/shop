@@ -7,8 +7,8 @@
 
 <x-dynamic-component :component="$this->getPageContainer()" :scope-type="$scopeType" :scope-id="$scopeId">
     <div class="sn-content">
-        <div class="w-full mx-auto @2xl:w-96 sn-padded">
-            <livewire:sn-user::components.auth.login :module="app(ShopPlugin::class)->getId()" />
-        </div>
+        <h1 class="sn-content-text text-xl font-semibold">{{ __('sn-shop::shop.frontend.search_results') }}</h1>
+
+        <livewire:sn-support::components.search-results :module="app(ShopPlugin::class)->getId()" :limit="10" placeholder="{{ __('sn-shop::shop.frontend.search_placeholder') }}" />
     </div>
 </x-dynamic-component>

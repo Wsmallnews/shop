@@ -1,1 +1,6 @@
-@import '../../vendor/filament/filament/resources/css/theme.css';
+/*
+ * shop 包样式入口：只放包自有样式（商城导航覆盖等），
+ * 公共 sn-* 工具类与 sn-cms-nav 导航基础样式由 support / cms 的 index.css 提供。
+ */
+
+@source "../views/**/*";

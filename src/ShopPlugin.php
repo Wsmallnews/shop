@@ -2,17 +2,19 @@
 
 namespace Wsmallnews\Shop;
 
+use BadMethodCallException;
 use Filament\Contracts\Plugin;
 use Filament\Panel;
-use Wsmallnews\Category\Resources\Pages\Category;
-use Wsmallnews\Product\Resources\AttributeRepositoryResource;
-// use Wsmallnews\Product\Resources\ProductResource;
-use Wsmallnews\Product\Resources\UnitRepositoryResource;
-use Wsmallnews\Shop\Filament\Pages\Settings\WechatPay;
-use Wsmallnews\Shop\Filament\Resources\ProductResource;
+use Wsmallnews\Shop\Support\Utils;
+use Wsmallnews\Support\Filament\Concerns\RegistersConfigurable;
 
+/**
+ * @method static mixed getPanelRegister(?string $type = null)
+ */
 class ShopPlugin implements Plugin
 {
+    use RegistersConfigurable;
+
     public function getId(): string
     {
         return 'sn-shop';
@@ -20,16 +22,8 @@ class ShopPlugin implements Plugin
 
     public function register(Panel $panel): void
     {
-        $panel
-            ->resources([
-                ProductResource::class,
-                // AttributeRepositoryResource::class,
-                // UnitRepositoryResource::class,
-            ])
-            ->pages([
-                WechatPay::class,
-                // Category::class,
-            ]);
+        $this->registerConfigurableResources($panel);
+        $this->registerConfigurablePages($panel);
     }
 
     public function boot(Panel $panel): void
@@ -48,5 +42,14 @@ class ShopPlugin implements Plugin
         $plugin = filament(app(static::class)->getId());
 
         return $plugin;
+    }
+
+    public function __call(string $method, array $arguments): mixed
+    {
+        if (method_exists(Utils::class, $method)) {
+            return Utils::$method(...$arguments);
+        }
+
+        throw new BadMethodCallException("Method {$method} does not exist on ShopPlugin");
     }
 }
