@@ -13,6 +13,7 @@ use Wsmallnews\Shop\Livewire\Index;
 use Wsmallnews\Shop\Livewire\Order\Confirm;
 use Wsmallnews\Shop\Livewire\Pay\Cashier;
 use Wsmallnews\Shop\Livewire\Product\Detail as ProductDetail;
+use Wsmallnews\Shop\Livewire\Product\Products as ProductList;
 use Wsmallnews\Shop\Livewire\Profile;
 use Wsmallnews\Shop\Livewire\Profile\Views;
 use Wsmallnews\Shop\Livewire\Search;
@@ -89,6 +90,7 @@ Route::domain(Utils::getConfig('routes.domain'))
 
         // 普通用户路由
         Route::get(Utils::getConfig('routes.uri.index', '/'), Index::class)->name('index');
+        Route::get(Utils::getConfig('routes.uri.products', 'products'), ProductList::class)->name('products');
         Route::get(Utils::getConfig('routes.uri.product-detail', 'product-detail/{id}'), ProductDetail::class)->name('product.detail');
 
         if (Utils::getConfig('search.enabled', false) && Utils::getConfig('search.display', 'dropdown') === 'page') {

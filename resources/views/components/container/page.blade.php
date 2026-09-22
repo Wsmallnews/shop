@@ -14,7 +14,7 @@
     $logoUrl = filled($general->logo) ? files_url($general->logo) : null;
 
     // 导航风格：直接读本模块 navigation 节（形态解析在复用的 cms 导航组件内经 moduleConfig 完成）
-    $navStyle = Utils::navigationConfig('navigation.style', 'primary');
+    $navStyle = Utils::getConfig('navigation.style', 'primary');
 @endphp
 
 <div {{ $attributes->merge(['class' => 'sn-shop-container-page w-full flex flex-col h-dvh']) }}>

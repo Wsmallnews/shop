@@ -151,7 +151,8 @@ class ShopServiceProvider extends PackageServiceProvider
                         'key' => 'product',
                         'model' => ProductUtils::getProductModel(),
                         'group' => __('sn-shop::shop.product_resource.model_label'),
-                        // 可售状态：上架 + 隐藏（隐藏 = 不列表展示，直达链接可买）
+                        // 可售状态：上架 + 隐藏（隐藏 = 不列表展示，直达链接可买）；
+                        // 产品资源由 shop 注册（注册即归属），数据落 sn-shop main scope
                         'query' => fn ($query) => $query->whereIn('status', [ProductStatus::Up, ProductStatus::Hidden]),
                         'scopeable' => Utils::getScopeable(),
                         'url' => fn ($record) => Utils::route('product.detail', ['id' => $record->id]),

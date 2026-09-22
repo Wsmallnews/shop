@@ -1,6 +1,8 @@
 <?php
 
 // config for Wsmallnews/Shop
+use Wsmallnews\Product\Filament\Resources\Products\ProductResource;
+
 return [
     /**
      * Scopeable 实例声明（单一事实源）
@@ -24,6 +26,10 @@ return [
     /**
      * Panel register
      *
+     * 产品资源由 shop 注册（product 是基础扩展包，自身不注册后台资源）：
+     * 注册即归属，module_id = sn-shop，后台创建/查询的产品落本模块 main
+     * scopeable（sn-shop / 0），与前台组件传入的 scope 一致
+     *
      * global_default 共享默认（非 FQCN 的 string key）会合并到所有条目：
      *   - navigation_group: 所有页面/资源的默认导航组
      *
@@ -36,7 +42,9 @@ return [
         'global_default' => [
             'navigation_group' => 'sn-shop::shop.global_default.navigation_group',
         ],
-        'resources' => [],
+        'resources' => [
+            ProductResource::class,
+        ],
         'pages' => [],
     ],
 
@@ -189,6 +197,7 @@ return [
             'settings-two-factor' => 'settings/two-factor',
 
             'product-detail' => 'product-detail/{id}',
+            'products' => 'products',
             'order-confirm' => 'order-confirm',
             'pay-cashier' => 'pay-cashier',
 

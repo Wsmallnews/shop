@@ -17,9 +17,11 @@ class Detail extends Base
 
     public function render()
     {
+        // 产品标题等 SEO 由内嵌的产品组件按产品数据设置，这里只兜底页面标题
         Seo::title(__('sn-shop::shop.frontend.product_detail'));
 
         return view('sn-shop::livewire.product.detail', [
+            'authUser' => Utils::getAuthUser(),
         ])->layout(Utils::getLayout());
     }
 }
