@@ -36,11 +36,16 @@ class Cashier extends Base
             return;
         }
 
-        $this->order = $this->user->orders()->where('order_sn', $this->orderSn)->first();
+        // 买家维度查单（buyer 多态；orders() 关联随阶段 C buyer 契约落地）
+        $this->order = Order::query()
+            ->where('buyer_type', $this->user->getMorphClass())
+            ->where('buyer_id', $this->user->getKey())
+            ->where('order_sn', $this->orderSn)
+            ->first();
     }
 
     #[On('pay-start')]
-    public function payStart($payMethod): void
+    public function payStart(string $channel, string $method): void
     {
         $this->setOrder();
 
@@ -50,22 +55,39 @@ class Cashier extends Base
             return;
         }
 
-        if (in_array($this->order->status, [Status::Closed])) {
+        if ($this->order->status === Status::Closed) {
             $this->error('订单已失效');
+
+            return;
         }
 
-        if (in_array($this->order->pay_status, [PayStatus::Paid])) {
+        if ($this->order->pay_status === PayStatus::Paid) {
             $this->error('订单已支付');
+
+            return;
         }
 
-        $payManager = app('sn-pay');
-        $pay = $payManager->setPayable($this->order);
+        // 发起支付：channel + method 定位渠道操作器；金额默认剩余应付（分批/定金可传指定金额）
+        $payResult = app('sn-pay')
+            ->payer($this->user)
+            ->payable($this->order)
+            ->channel($channel, $method)
+            ->pay();
 
-        $payRecord = $pay->driver($payMethod)->pay();
+        if ($payResult->isPaid()) {
+            // 余额类支付直接完成
+            $this->dispatch('pay-finish', ['pay_sn' => $payResult->payRecord->pay_sn]);
 
-        if (in_array($payMethod, ['wechat', 'alipay'])) {
-            $pay->driver($payMethod)->thirdPrepay($payRecord);
+            return;
         }
+
+        // 第三方预下单结果（二维码/唤起参数/跳转），前端按 method 消费
+        $this->dispatch('pay-prepay-result', [
+            'pay_sn' => $payResult->payRecord->pay_sn,
+            'channel' => $channel,
+            'method' => $method,
+            'result' => $payResult->sdkResult,
+        ]);
     }
 
     public function render()

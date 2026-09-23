@@ -5,8 +5,6 @@
     $scopeType = $this->getScopeType();
     $scopeId = $this->getScopeId();
 
-    $payMethods = ['money', 'alipay'];
-
     $userAddressColumns = [
         'md' => 2,
         '2xl' => 3,
@@ -22,13 +20,13 @@
                     <div class="sn-descript-text">{{ __('sn-shop::shop.frontend.pay_cashier') }}</div>
                     <div class="flex items-end sn-gap">
                         <div>{{ __('sn-order::order.confirm.pay_fee') }}：</div>
-                        <div class="text-xl font-bold sn-primary-text">{{ $order->remain_pay_fee }}</div>
+                        <div class="text-xl font-bold sn-primary-text">{{ sn_money()->format($order->remain_pay_fee) }}</div>
                     </div>
                 </div>
             </div>
 
             <div class="sn-container sn-padded w-full">
-                <livewire:sn-pay::components.pay-methods :user="$user" :pay-methods="$payMethods" :columns="$userAddressColumns" />
+                <livewire:sn-pay::components.pay-methods :user="$user" :columns="$userAddressColumns" />
             </div>
         @else
             {{-- 无订单上下文（未登录 / 单号缺失 / 订单不存在） --}}

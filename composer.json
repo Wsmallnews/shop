@@ -28,6 +28,7 @@
         "wsmallnews/cms": "^1.0",
         "wsmallnews/member": "^1.0",
         "wsmallnews/preference": "^1.0",
+        "wsmallnews/pay": "^1.0",
         "wsmallnews/product": "^1.0",
         "wsmallnews/support": "^1.0",
         "wsmallnews/user": "^1.0"
