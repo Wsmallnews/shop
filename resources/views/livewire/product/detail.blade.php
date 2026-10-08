@@ -20,7 +20,7 @@
             Alpine.data('snShopDetail', () => ({
                 init() {
                     // 产品组件发起购买：携带有货规格跳转确认订单页
-                    this.$wire.on('product-buy', (data) => {
+                    this.$wire.on('sn-product-buy', (data) => {
                         const params = new URLSearchParams(data);
                         window.location.href = `{{ $confirmUrl }}?${params.toString()}`;
                     });

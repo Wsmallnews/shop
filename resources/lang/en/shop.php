@@ -38,6 +38,7 @@ return [
     'sidebar' => [
         'profile' => 'Profile',
         'profile_views' => 'Browsing History',
+        'profile_addresses' => 'Shipping Addresses',
         'settings_profile' => 'Profile',
         'settings_password' => 'Password',
         'settings_two_factor' => 'Two-factor Authentication',

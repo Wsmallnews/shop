@@ -1,5 +1,4 @@
 @php
-    use Filament\Support\Icons\Heroicon;
     use Wsmallnews\Shop\Support\Utils;
 
     $scopeType = $this->getScopeType();
@@ -9,15 +8,23 @@
 @endphp
 
 <x-dynamic-component :component="$this->getPageContainer()" :scope-type="$scopeType" :scope-id="$scopeId">
-    <div class="sn-content" x-data="snShopOrderConfirm({})">
-        {{-- @sn todo 嵌入 order 包确认组件（sn-order-confirm，:buyer/:relate-items/:order-type/:from）；
-            其收货地址子组件（sn-user::components.choose-address）待 user 包迁移 Components/ 到 Livewire 命名空间后可用 --}}
-        <x-sn-support::empty
-            :icon="Heroicon::OutlinedShoppingBag"
-            icon-color="gray"
-            icon-size="md"
-            heading="{{ __('sn-shop::shop.frontend.order_confirm') }}"
-            description="{{ __('sn-shop::shop.frontend.order_pending') }}"
+    <div class="sn-content flex flex-col sn-gap" x-data="snShopOrderConfirm({})">
+        {{-- 收货地址选择：默认地址自动选中，选择后经 sn-profile-address:selected 事件
+            通知 order 包 Confirm 组件（落单时写入订单地址快照） --}}
+        <livewire:sn-profile::components.address.choose-address
+            :owner="$user"
+            :manage-url="Utils::route('profile.addresses')"
+        />
+
+        {{-- 订单确认与落单由 order 包组件承载（配方按 order_type 从注册表解析；
+            scope 由商城传入：商品查询与订单落库均按商城分区） --}}
+        <livewire:sn-order::components.confirm
+            :buyer="$user"
+            :order-type="$type"
+            :relate-items="$relateItems"
+            :from="$from"
+            :scope-type="$scopeType"
+            :scope-id="$scopeId"
         />
     </div>
 </x-dynamic-component>
@@ -28,7 +35,7 @@
             Alpine.data('snShopOrderConfirm', () => ({
                 init() {
                     // 订单创建完成：携单号跳转收银台
-                    this.$wire.on('order-create-finish', (data) => {
+                    this.$wire.on('sn-order-created', (data) => {
                         const params = new URLSearchParams(data);
                         window.location.href = `{{ $cashierUrl }}?${params.toString()}`;
                     });

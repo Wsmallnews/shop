@@ -15,6 +15,7 @@ use Wsmallnews\Shop\Livewire\Pay\Cashier;
 use Wsmallnews\Shop\Livewire\Product\Detail as ProductDetail;
 use Wsmallnews\Shop\Livewire\Product\Products as ProductList;
 use Wsmallnews\Shop\Livewire\Profile;
+use Wsmallnews\Shop\Livewire\Profile\Addresses;
 use Wsmallnews\Shop\Livewire\Profile\Views;
 use Wsmallnews\Shop\Livewire\Search;
 use Wsmallnews\Shop\Livewire\Settings\Password as SettingsPassword;
@@ -71,6 +72,8 @@ Route::domain(Utils::getConfig('routes.domain'))
             Route::get(Utils::getConfig('routes.uri.profile', 'profile'), Profile::class)->name('profile');
             // 浏览记录
             Route::get(Utils::getConfig('routes.uri.profile-views', 'profile/views'), Views::class)->name('profile.views');
+            // 收货地址管理
+            Route::get(Utils::getConfig('routes.uri.profile-addresses', 'profile/addresses'), Addresses::class)->name('profile.addresses');
 
             // 个人设置
             Route::get(Utils::getConfig('routes.uri.settings-profile', 'settings/profile'), SettingsProfile::class)->name('settings.profile');

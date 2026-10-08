@@ -38,6 +38,7 @@ return [
     'sidebar' => [
         'profile' => '个人中心',
         'profile_views' => '浏览记录',
+        'profile_addresses' => '收货地址',
         'settings_profile' => '个人资料',
         'settings_password' => '修改密码',
         'settings_two_factor' => '双因素认证',

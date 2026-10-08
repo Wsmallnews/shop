@@ -65,6 +65,9 @@ class ShopServiceProvider extends PackageServiceProvider
             namespace: 'Wsmallnews\\Shop',
             plugin: ShopPlugin::class,
         ));
+
+        // 注册商城订单场景配方（orders.type = 'product'；退款/失效反查经此映射）
+        \Wsmallnews\Order\Facades\ShortcutRegistry::registerShortcut('product', Order\Shortcuts\ProductShortcut::class);
     }
 
     public function packageBooted(): void
@@ -189,6 +192,13 @@ class ShopServiceProvider extends PackageServiceProvider
                 'url' => Utils::route('profile.views'),
                 'icon' => Heroicon::OutlinedEye,
                 'active_icon' => Heroicon::Eye,
+            ],
+            fn () => [
+                'key' => 'profile-addresses',
+                'label' => __('sn-shop::shop.sidebar.profile_addresses'),
+                'url' => Utils::route('profile.addresses'),
+                'icon' => Heroicon::OutlinedMapPin,
+                'active_icon' => Heroicon::MapPin,
             ],
             fn () => [
                 'key' => 'settings-profile',

@@ -44,7 +44,7 @@ class Cashier extends Base
             ->first();
     }
 
-    #[On('pay-start')]
+    #[On('sn-pay-method-selected')]
     public function payStart(string $channel, string $method): void
     {
         $this->setOrder();
@@ -76,13 +76,13 @@ class Cashier extends Base
 
         if ($payResult->isPaid()) {
             // 余额类支付直接完成
-            $this->dispatch('pay-finish', ['pay_sn' => $payResult->payRecord->pay_sn]);
+            $this->dispatch('sn-pay-finished', ['pay_sn' => $payResult->payRecord->pay_sn]);
 
             return;
         }
 
         // 第三方预下单结果（二维码/唤起参数/跳转），前端按 method 消费
-        $this->dispatch('pay-prepay-result', [
+        $this->dispatch('sn-pay-prepay-result', [
             'pay_sn' => $payResult->payRecord->pay_sn,
             'channel' => $channel,
             'method' => $method,
