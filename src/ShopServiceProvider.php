@@ -16,6 +16,7 @@ use Illuminate\Support\Facades\URL;
 use Livewire\Livewire;
 use Spatie\LaravelPackageTools\Package;
 use Spatie\LaravelPackageTools\PackageServiceProvider;
+use Wsmallnews\Order\Facades\ShortcutRegistry;
 use Wsmallnews\Product\Enums\ProductStatus;
 use Wsmallnews\Product\Support\Utils as ProductUtils;
 use Wsmallnews\Shop\Commands\ShopInstallCommand;
@@ -67,7 +68,7 @@ class ShopServiceProvider extends PackageServiceProvider
         ));
 
         // 注册商城订单场景配方（orders.type = 'product'；退款/失效反查经此映射）
-        \Wsmallnews\Order\Facades\ShortcutRegistry::registerShortcut('product', Order\Shortcuts\ProductShortcut::class);
+        ShortcutRegistry::registerShortcut('product', Order\Shortcuts\ProductShortcut::class);
     }
 
     public function packageBooted(): void
