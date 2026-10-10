@@ -4,9 +4,12 @@ namespace Wsmallnews\Shop\Order\Shortcuts;
 
 use Wsmallnews\Order\Pipes\CommonPipes;
 use Wsmallnews\Order\Shortcuts\Base;
+use Wsmallnews\Product\Pipes\Calc\Extra as CalcExtraPipe;
 use Wsmallnews\Product\Pipes\Calc\Product as CalcProductPipe;
+use Wsmallnews\Product\Pipes\Check\Extra as CheckExtraPipe;
 use Wsmallnews\Product\Pipes\Check\Product as CheckProductPipe;
 use Wsmallnews\Product\Pipes\Fetch\Product as FetchProductPipe;
+use Wsmallnews\Product\Pipes\Summary\Extra as SummaryExtraPipe;
 use Wsmallnews\Product\Pipes\Summary\Product as SummaryProductPipe;
 
 /**
@@ -29,6 +32,7 @@ class ProductShortcut extends Base
     {
         return array_merge(CommonPipes::check(), [
             'product' => CheckProductPipe::class,
+            'extra' => CheckExtraPipe::class,
         ]);
     }
 
@@ -36,6 +40,7 @@ class ProductShortcut extends Base
     {
         return array_merge(CommonPipes::calc(), [
             'product' => CalcProductPipe::class,
+            'extra' => CalcExtraPipe::class,
         ]);
     }
 
@@ -43,6 +48,7 @@ class ProductShortcut extends Base
     {
         return array_merge(CommonPipes::summary(), [
             'product' => SummaryProductPipe::class,
+            'extra' => SummaryExtraPipe::class,
         ]);
     }
 

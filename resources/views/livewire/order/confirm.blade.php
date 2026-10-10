@@ -8,7 +8,7 @@
 @endphp
 
 <x-dynamic-component :component="$this->getPageContainer()" :scope-type="$scopeType" :scope-id="$scopeId">
-    <div class="sn-content flex flex-col sn-gap" x-data="snShopOrderConfirm({})">
+    <div class="sn-content flex flex-col sn-gap">
         {{-- 收货地址选择：默认地址自动选中，选择后经 sn-profile-address:selected 事件
             通知 order 包 Confirm 组件（落单时写入订单地址快照） --}}
         <livewire:sn-profile::components.address.choose-address
@@ -28,19 +28,3 @@
         />
     </div>
 </x-dynamic-component>
-
-@once
-    <script>
-        document.addEventListener('alpine:init', () => {
-            Alpine.data('snShopOrderConfirm', () => ({
-                init() {
-                    // 订单创建完成：携单号跳转收银台
-                    this.$wire.on('sn-order-created', (data) => {
-                        const params = new URLSearchParams(data);
-                        window.location.href = `{{ $cashierUrl }}?${params.toString()}`;
-                    });
-                },
-            }));
-        });
-    </script>
-@endonce

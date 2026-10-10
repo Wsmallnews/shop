@@ -12,7 +12,7 @@
 @endphp
 
 <x-dynamic-component :component="$this->getPageContainer()" :scope-type="$scopeType" :scope-id="$scopeId">
-    <div class="sn-content" x-data="snShopCashier({})">
+    <div class="sn-content">
         @if ($order)
             {{-- 订单金额与支付方式（pay 包组件：选中后向上分发 sn-pay-method-selected，由本页 payStart 处理） --}}
             <div class="sn-container sn-padded w-full">
@@ -40,17 +40,3 @@
         @endif
     </div>
 </x-dynamic-component>
-
-@once
-    <script>
-        document.addEventListener('alpine:init', () => {
-            Alpine.data('snShopCashier', () => ({
-                init() {
-                    this.$wire.on('sn-pay-finished', (data) => {
-                        // 支付完成：跳转结果页（order 包提供）
-                    });
-                },
-            }));
-        });
-    </script>
-@endonce

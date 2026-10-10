@@ -1,6 +1,7 @@
 <?php
 
 // config for Wsmallnews/Shop
+use Wsmallnews\Product\Filament\Resources\Extras\ExtraResource;
 use Wsmallnews\Product\Filament\Resources\Products\ProductResource;
 
 return [
@@ -44,6 +45,7 @@ return [
         ],
         'resources' => [
             ProductResource::class,
+            ExtraResource::class,
         ],
         'pages' => [],
     ],
